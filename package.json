@@ -1,0 +1,23 @@
+{
+  "name": "object-fit-math",
+  "version": "0.1.0",
+  "description": "Just the math behind object-fit and object-position",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build-example": "npm run build && browserify ./dist/examples/index.js -o ./examples/app.js",
+    "test": "npm run build && node ./dist/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nrkn/object-fit-math.git"
+  },
+  "keywords": [],
+  "author": "Nik Coughlin <nrkn.com@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nrkn/object-fit-math/issues"
+  },
+  "homepage": "https://github.com/nrkn/object-fit-math#readme"
+}
