@@ -67,7 +67,7 @@ canvas.addEventListener( 'click', e => {
 
   const childPoint = transformFittedPoint(
     { x, y }, canvasSize, canvas, objectFit, left, top
-  )}
+  )
 
   console.log( childPoint )
 }
