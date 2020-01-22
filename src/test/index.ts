@@ -1,6 +1,6 @@
 import * as fixtures from './fixtures.json'
-import { fitAndPosition } from '../fitter.js'
-import { FitMode } from '../types.js'
+import { fitAndPosition } from '..'
+import { FitMode } from '../types'
 
 for( let i = 0; i < fixtures.length; i++ ){
   const { job, expect } = fixtures[ i ]
@@ -20,6 +20,7 @@ for( let i = 0; i < fixtures.length; i++ ){
 
   if( !pass ){
     console.log( `  Expected ${ JSON.stringify( expect ) } but result was ${ JSON.stringify( result ) } `)
-    break
+
+    process.exit( 1 )
   }
 }

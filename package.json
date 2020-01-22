@@ -1,6 +1,6 @@
 {
   "name": "object-fit-math",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Just the math behind object-fit and object-position",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -15,11 +15,22 @@
     "type": "git",
     "url": "git+https://github.com/nrkn/object-fit-math.git"
   },
-  "keywords": [],
+  "keywords": [
+    "fit",
+    "object-fit",
+    "object-position",
+    "cover",
+    "contain",
+    "fill",
+    "scale-down"
+  ],
   "author": "Nik Coughlin <nrkn.com@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nrkn/object-fit-math/issues"
   },
-  "homepage": "https://github.com/nrkn/object-fit-math#readme"
+  "homepage": "https://github.com/nrkn/object-fit-math#readme",
+  "devDependencies": {
+    "@types/node": "^13.1.8"
+  }
 }
