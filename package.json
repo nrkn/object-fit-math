@@ -6,7 +6,8 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build-example": "npm run build && browserify ./dist/examples/index.js -o ./examples/app.js",
+    "build-example-compare": "npm run build && browserify ./dist/examples/compare.js -o ./examples/compare.js",
+    "build-examples": "npm run build-example-compare",
     "test": "npm run build && node ./dist/test"
   },
   "repository": {

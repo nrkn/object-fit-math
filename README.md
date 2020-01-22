@@ -73,6 +73,17 @@ canvas.addEventListener( 'click', e => {
 }
 ```
 
+## examples
+
+### compare
+
+The [compare example](/examples/compare.html) generates a long list of
+combinations of parent and child sizes, fit modes, positions etc
+
+Each comparison shows the result of the DOM's built in `object-fit` and
+`object-position` on the left, and on the right it uses this module to get the
+rectangle and uses absolute positioning and sizing to replicate the effect
+
 ## license
 
 MIT License

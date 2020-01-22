@@ -1,6 +1,7 @@
 import { Size, FitMode, Rect } from '../types'
 import { fitModes, sizes, lengths } from './data'
 import { fitAndPosition } from '../fitter'
+import { testImageData } from './test-image-data'
 
 interface Job {
   parent: Size
@@ -42,23 +43,7 @@ const createCanvas = ( size: Size ) => {
   let imageData = imageDataCache.get( key )
 
   if( !imageData ){
-    imageData = new ImageData( canvas.width, canvas.height )
-
-    for ( let y = 0; y < canvas.height; y++ ) {
-      for ( let x = 0; x < canvas.width; x++ ) {
-        const index = y * canvas.width + x
-        const destIndex = index * 4
-
-        const yValue = Math.floor( ( 255 / canvas.height ) * y )
-        const xValue = Math.floor( ( 255 / canvas.width ) * x )
-
-        imageData.data[ destIndex ] = xValue
-        imageData.data[ destIndex + 1 ] = yValue
-        imageData.data[ destIndex + 2 ] = yValue
-        imageData.data[ destIndex + 3 ] = 255
-      }
-    }
-
+    imageData = testImageData( canvas )
     imageDataCache.set( key, imageData )
   }
 

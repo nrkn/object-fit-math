@@ -1,27 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// larger parent, smaller child
-// landscape, portrait
-// pixel left/top, percent left/top
-exports.fitModes = [
-    'contain', 'cover', 'fill', 'none', 'scale-down'
-];
-exports.sizes = [
-    { width: 320, height: 240 },
-    { width: 240, height: 320 },
-    { width: 160, height: 90 },
-    { width: 90, height: 160 }
-];
-exports.percents = ['50%', '0%', '100%'];
-exports.pixels = ['0px', '40px', '80px'];
-exports.lengths = [...exports.percents, ...exports.pixels];
-
-},{}],2:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const data_1 = require("./data");
 const fitter_1 = require("../fitter");
+const test_image_data_1 = require("./test-image-data");
 const fixtures = [];
 const noElement = () => {
     throw Error('Expected querySelector to find an element');
@@ -39,19 +21,7 @@ const createCanvas = (size) => {
     const key = `${size.width} ${size.height}`;
     let imageData = imageDataCache.get(key);
     if (!imageData) {
-        imageData = new ImageData(canvas.width, canvas.height);
-        for (let y = 0; y < canvas.height; y++) {
-            for (let x = 0; x < canvas.width; x++) {
-                const index = y * canvas.width + x;
-                const destIndex = index * 4;
-                const yValue = Math.floor((255 / canvas.height) * y);
-                const xValue = Math.floor((255 / canvas.width) * x);
-                imageData.data[destIndex] = xValue;
-                imageData.data[destIndex + 1] = yValue;
-                imageData.data[destIndex + 2] = yValue;
-                imageData.data[destIndex + 3] = 255;
-            }
-        }
+        imageData = test_image_data_1.testImageData(canvas);
         imageDataCache.set(key, imageData);
     }
     context.putImageData(imageData, 0, 0);
@@ -136,7 +106,46 @@ const onComplete = () => {
 };
 tick(onComplete);
 
-},{"../fitter":3,"./data":1}],3:[function(require,module,exports){
+},{"../fitter":4,"./data":2,"./test-image-data":3}],2:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+// larger parent, smaller child
+// landscape, portrait
+// pixel left/top, percent left/top
+exports.fitModes = [
+    'contain', 'cover', 'fill', 'none', 'scale-down'
+];
+exports.sizes = [
+    { width: 320, height: 240 },
+    { width: 240, height: 320 },
+    { width: 160, height: 90 },
+    { width: 90, height: 160 }
+];
+exports.percents = ['50%', '0%', '100%'];
+exports.pixels = ['0px', '40px', '80px'];
+exports.lengths = [...exports.percents, ...exports.pixels];
+
+},{}],3:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.testImageData = ({ width, height }) => {
+    const imageData = new ImageData(width, height);
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const index = y * width + x;
+            const destIndex = index * 4;
+            const yValue = Math.floor((255 / height) * y);
+            const xValue = Math.floor((255 / width) * x);
+            imageData.data[destIndex] = xValue;
+            imageData.data[destIndex + 1] = yValue;
+            imageData.data[destIndex + 2] = yValue;
+            imageData.data[destIndex + 3] = 255;
+        }
+    }
+    return imageData;
+};
+
+},{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fit = (parent, child, fitMode = 'fill') => {
@@ -179,4 +188,4 @@ const lengthToPixels = (length, parent, child) => length.endsWith('%') ?
     (parent - child) * (parseFloat(length) / 100) :
     parseFloat(length);
 
-},{}]},{},[2]);
+},{}]},{},[1]);
