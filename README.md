@@ -73,6 +73,30 @@ canvas.addEventListener( 'click', e => {
 })
 ```
 
+## types
+
+See [/src/types.ts](/src/types.ts) for `Size`, `Point` etc
+
+### exported functions
+
+```ts
+fit = ( parent: Size, child: Size, fitMode: FitMode = 'fill' ) => Size
+
+position = ( parent: Size, child: Size, left = '50%', top = '50%' ) => Point
+
+fitAndPosition = (
+  parent: Size, child: Size,
+  fitMode: FitMode = 'fill', left = '50%', top = '50%'
+) => Rect
+
+transformFittedPoint = (
+  fittedPoint: Point, parent: Size, child: Size,
+  fitMode: FitMode = 'fill', left = '50%', top = '50%'
+) => Point
+
+isFit = ( value: any ): value is FitMode => boolean
+```
+
 ## examples
 
 ### transform event point to pixel

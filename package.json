@@ -1,6 +1,6 @@
 {
   "name": "object-fit-math",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Just the math behind object-fit and object-position",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",

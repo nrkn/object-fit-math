@@ -3,14 +3,14 @@ import { fitAndPosition } from './fitter'
 
 export const transformFittedPoint = (
   fittedPoint: Point, parent: Size, child: Size,
-  objectFit: FitMode = 'fill', left = '50%', top = '50%'
+  fitMode: FitMode = 'fill', left = '50%', top = '50%'
 ) => {
   const {
     x: positionedX,
     y: positionedY,
     width: fittedWidth,
     height: fittedHeight
-  } = fitAndPosition( parent, child, objectFit, left, top )
+  } = fitAndPosition( parent, child, fitMode, left, top )
 
   const wRatio = child.width / fittedWidth
   const hRatio = child.height / fittedHeight
