@@ -1,4 +1,5 @@
 import { Size } from '../types'
+import { noContext } from './util'
 
 export const testImageData = ( { width, height }: Size ) => {
   const imageData = new ImageData( width, height )
@@ -19,4 +20,18 @@ export const testImageData = ( { width, height }: Size ) => {
   }
 
   return imageData
+}
+
+export const testCanvas = ( size: Size ) => {
+  const canvas = document.createElement( 'canvas' )
+  const { width, height } = size
+
+  canvas.width = width
+  canvas.height = height
+
+  const context = canvas.getContext( '2d' ) || noContext()
+
+  context.putImageData( testImageData( size ), 0, 0 )
+
+  return canvas
 }

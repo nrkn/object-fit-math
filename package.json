@@ -1,13 +1,14 @@
 {
   "name": "object-fit-math",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Just the math behind object-fit and object-position",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build-example-compare": "npm run build && browserify ./dist/examples/compare.js -o ./examples/compare.js",
-    "build-examples": "npm run build-example-compare",
+    "build-example-compare": "browserify ./dist/examples/compare.js -o ./examples/compare/compare.js",
+    "build-example-transform": "browserify ./dist/examples/transform.js -o ./examples/transform/transform.js",
+    "build-examples": "npm run build && npm run build-example-compare && npm run build-example-transform",
     "test": "npm run build && node ./dist/test"
   },
   "repository": {

@@ -1,7 +1,8 @@
 import { Size, FitMode, Rect } from '../types'
 import { fitModes, sizes, lengths } from './data'
 import { fitAndPosition } from '../fitter'
-import { testImageData } from './test-image-data'
+import { testImageData } from './test-image'
+import { noElement, noContext } from './util'
 
 interface Job {
   parent: Size
@@ -18,10 +19,6 @@ interface Fixture {
 
 const fixtures: Fixture[] = []
 
-const noElement = () => {
-  throw Error( 'Expected querySelector to find an element' )
-}
-
 const fixturesEl = document.querySelector( 'pre' ) || noElement()
 
 const templateEl = document.querySelector( 'template' ) || noElement()
@@ -34,9 +31,7 @@ const createCanvas = ( size: Size ) => {
   canvas.width = size.width
   canvas.height = size.height
 
-  const context = canvas.getContext( '2d' )
-
-  if ( !context ) throw Error( 'Expected 2d drawing context' )
+  const context = canvas.getContext( '2d' ) || noContext()
 
   const key = `${ size.width } ${ size.height }`
 

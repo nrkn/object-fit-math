@@ -70,19 +70,53 @@ canvas.addEventListener( 'click', e => {
   )
 
   console.log( childPoint )
-}
+})
 ```
 
 ## examples
 
+### transform event point to pixel
+
+The [transform example](/examples/transform/) creates a small canvas then
+fits it to its parent element - you can then click anywhere on the canvas to
+get the actual pixel location. Useful for finding out the actual pixel that was
+clicked on a `video`/`canvas`/`img` which uses `object-fit`
+
 ### compare
 
-The [compare example](/examples/compare.html) generates a long list of
+The [compare example](/examples/compare/) generates a long list of
 combinations of parent and child sizes, fit modes, positions etc
 
 Each comparison shows the result of the DOM's built in `object-fit` and
 `object-position` on the left, and on the right it uses this module to get the
 rectangle and uses absolute positioning and sizing to replicate the effect
+
+## building
+
+You will need `typescript` installed globally to build the module, and
+`browserify` installed globally to build the examples
+
+`npm install typescript -g`
+
+`npm run build`
+
+`npm install browserify -g`
+
+`npm run build-examples`
+
+## contributing
+
+Please try to follow the existing style (sorry, no linting etc at the moment)
+and keep your pull requests small and focussed
+
+### testing your changes
+
+The easiest way to tell if your changes are correct is to build the examples
+and then scroll through the compare example - yes, this file is huge, but it
+ensures that a good combination of inputs is represented. Once you verify
+visually that the math matches the DOM behaviour, there is a `<pre>` element at
+the bottom that contains the fixture data used by the tests, copy and paste this
+to [/src/test/fixtures.json](/src/test/fixtures.json) and run the tests.
 
 ## license
 

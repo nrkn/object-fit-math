@@ -3,25 +3,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const data_1 = require("./data");
 const fitter_1 = require("../fitter");
-const test_image_data_1 = require("./test-image-data");
+const test_image_1 = require("./test-image");
+const util_1 = require("./util");
 const fixtures = [];
-const noElement = () => {
-    throw Error('Expected querySelector to find an element');
-};
-const fixturesEl = document.querySelector('pre') || noElement();
-const templateEl = document.querySelector('template') || noElement();
+const fixturesEl = document.querySelector('pre') || util_1.noElement();
+const templateEl = document.querySelector('template') || util_1.noElement();
 const imageDataCache = new Map();
 const createCanvas = (size) => {
     const canvas = document.createElement('canvas');
     canvas.width = size.width;
     canvas.height = size.height;
-    const context = canvas.getContext('2d');
-    if (!context)
-        throw Error('Expected 2d drawing context');
+    const context = canvas.getContext('2d') || util_1.noContext();
     const key = `${size.width} ${size.height}`;
     let imageData = imageDataCache.get(key);
     if (!imageData) {
-        imageData = test_image_data_1.testImageData(canvas);
+        imageData = test_image_1.testImageData(canvas);
         imageDataCache.set(key, imageData);
     }
     context.putImageData(imageData, 0, 0);
@@ -36,12 +32,12 @@ object-fit:      ${fitMode}
 object-position: ${left} ${top}
   `.trim();
     const el = templateEl.content.cloneNode(true);
-    const pre = el.querySelector('pre') || noElement();
-    const dom = el.querySelector('.dom') || noElement();
-    const math = el.querySelector('.math') || noElement();
-    const domParent = dom.querySelector('.parent') || noElement();
+    const pre = el.querySelector('pre') || util_1.noElement();
+    const dom = el.querySelector('.dom') || util_1.noElement();
+    const math = el.querySelector('.math') || util_1.noElement();
+    const domParent = dom.querySelector('.parent') || util_1.noElement();
     const domChild = createCanvas(child);
-    const mathParent = math.querySelector('.parent') || noElement();
+    const mathParent = math.querySelector('.parent') || util_1.noElement();
     const mathChild = createCanvas(child);
     const expect = fitter_1.fitAndPosition(parent, child, fitMode, left, top);
     const fixture = { job, expect };
@@ -65,8 +61,8 @@ object-position: ${left} ${top}
     return el;
 };
 const sizesReverse = data_1.sizes.slice().reverse();
-const labelEl = document.querySelector('label') || noElement();
-const progressEl = labelEl.querySelector('progress') || noElement();
+const labelEl = document.querySelector('label') || util_1.noElement();
+const progressEl = labelEl.querySelector('progress') || util_1.noElement();
 const expectCount = (data_1.lengths.length * data_1.lengths.length * data_1.fitModes.length * data_1.sizes.length *
     data_1.sizes.length);
 progressEl.max = expectCount;
@@ -106,7 +102,7 @@ const onComplete = () => {
 };
 tick(onComplete);
 
-},{"../fitter":4,"./data":2,"./test-image-data":3}],2:[function(require,module,exports){
+},{"../fitter":5,"./data":2,"./test-image":3,"./util":4}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // larger parent, smaller child
@@ -128,6 +124,7 @@ exports.lengths = [...exports.percents, ...exports.pixels];
 },{}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const util_1 = require("./util");
 exports.testImageData = ({ width, height }) => {
     const imageData = new ImageData(width, height);
     for (let y = 0; y < height; y++) {
@@ -144,8 +141,27 @@ exports.testImageData = ({ width, height }) => {
     }
     return imageData;
 };
+exports.testCanvas = (size) => {
+    const canvas = document.createElement('canvas');
+    const { width, height } = size;
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext('2d') || util_1.noContext();
+    context.putImageData(exports.testImageData(size), 0, 0);
+    return canvas;
+};
 
-},{}],4:[function(require,module,exports){
+},{"./util":4}],4:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.noElement = () => {
+    throw Error('Expected querySelector to find an element');
+};
+exports.noContext = () => {
+    throw Error('Expected 2d drawing context');
+};
+
+},{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fit = (parent, child, fitMode = 'fill') => {
